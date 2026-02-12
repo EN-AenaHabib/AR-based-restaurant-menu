@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUMINA | The Grill Collection</title>
+    
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap');
+
+        :root {
+            --accent: #d4af37;
+            --bg: #050505;
+            --card: #0f0f0f;
+            --text-light: #ffffff;
+            --text-dim: #666;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text-light);
+            font-family: 'Inter', sans-serif;
+            padding: 80px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Ambient Background Glow */
+        .glow {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.03) 0%, transparent 80%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Branding Sidebar */
+        .side-brand {
+            position: fixed;
+            top: 40px; left: 40px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            z-index: 100;
+        }
+
+        .abstract-crown {
+            width: 18px; height: 18px;
+            border: 1.5px solid var(--accent);
+            transform: rotate(45deg);
+            position: relative;
+        }
+
+        .abstract-crown::after {
+            content: "";
+            position: absolute;
+            inset: 4px;
+            background: var(--accent);
+        }
+
+        .nav-back {
+            text-decoration: none;
+            color: var(--accent);
+            font-size: 0.65rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            border-bottom: 1px solid transparent;
+            transition: 0.3s;
+        }
+
+        .nav-back:hover { border-color: var(--accent); }
+
+        .header-section {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        h1.menu-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 400;
+            margin: 0;
+            letter-spacing: 4px;
+            color: var(--text-light);
+        }
+
+        .subtitle {
+            font-size: 0.75rem;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-top: 15px;
+        }
+
+        /* Grid */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 50px;
+            width: 100%;
+            max-width: 1100px;
+        }
+
+        .menu-card {
+            background: var(--card);
+            border: 1px solid #1a1a1a;
+            position: relative;
+            transition: 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .menu-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        model-viewer {
+            width: 100%;
+            height: 400px;
+            background: radial-gradient(circle, #1a1a1a 0%, #050505 100%);
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .price-badge {
+            position: absolute;
+            top: -25px; right: 40px;
+            background: var(--accent);
+            color: #000;
+            padding: 12px 25px;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin: 0 0 15px 0; font-weight: 400; color: var(--accent); }
+        
+        .ingredients {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            margin-bottom: 25px;
+            line-height: 1.8;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .allergen-bar {
+            background: #1a1111;
+            border: 1px solid #2b1a1a;
+            padding: 10px 15px;
+            font-size: 0.6rem;
+            color: #e57373;
+            letter-spacing: 2px;
+            display: inline-block;
+            margin-bottom: 30px;
+        }
+
+        /* Luxury Stats */
+        .stats-wrapper {
+            border-top: 1px solid #222;
+            padding-top: 25px;
+        }
+
+        .stat-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.6rem;
+            letter-spacing: 3px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #444;
+        }
+
+        .luxury-bar {
+            height: 1px;
+            background: #222;
+            width: 100%;
+        }
+
+        .luxury-fill {
+            height: 100%;
+            background: var(--accent);
+            width: 0%;
+            box-shadow: 0 0 10px var(--accent);
+            transition: width 2s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        @media (max-width: 850px) {
+            .menu-grid { grid-template-columns: 1fr; }
+            .side-brand { left: 20px; top: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="glow"></div>
+
+    <div class="side-brand">
+        <div class="abstract-crown"></div>
+        <a href="index.html" class="nav-back">Back</a>
+    </div>
+
+    <div class="header-section">
+        <h1 class="menu-title">The Grill</h1>
+        <div class="subtitle">Islamabad's Finest Selection</div>
+    </div>
+
+    <div class="menu-grid">
+        
+        <div class="menu-card">
+            <model-viewer src="burger_0001.glb" ar camera-controls auto-rotate shadow-intensity="2" environment-image="neutral" exposure="1.2"></model-viewer>
+            <div class="content">
+                <div class="price-badge">Rs. 2,450</div>
+                <h2>Supreme Wagyu</h2>
+                <div class="ingredients">Wagyu Beef &bull; Black Truffle &bull; Aged Cheddar &bull; Gold Brioche</div>
+                
+                <div class="allergen-bar">ALLERGY ALERT: GLUTEN, DAIRY, SEEDS</div>
+
+                <div class="stats-wrapper">
+                    <div class="stat-label">
+                        <span>ENERGY / 850 KCAL</span>
+                        <span>70% DAILY ENERGY</span>
+                    </div>
+                    <div class="luxury-bar"><div class="luxury-fill" style="width: 70%;"></div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-card">
+            <model-viewer src="pizza_slice_-_optimized.glb" ar camera-controls auto-rotate shadow-intensity="2" exposure="1.2"></model-viewer>
+            <div class="content">
+                <div class="price-badge">Rs. 1,850</div>
+                <h2>Truffle Bianca</h2>
+                <div class="ingredients">Wild Mushroom &bull; Buffalo Mozzarella &bull; Truffle Honey</div>
+                
+                <div class="allergen-bar">ALLERGY ALERT: GLUTEN, DAIRY</div>
+
+                <div class="stats-wrapper">
+                    <div class="stat-label">
+                        <span>ENERGY / 620 KCAL</span>
+                        <span>45% DAILY ENERGY</span>
+                    </div>
+                    <div class="luxury-bar"><div class="luxury-fill" style="width: 45%;"></div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-card">
+            <model-viewer src="chocolate_donut.glb" ar camera-controls auto-rotate shadow-intensity="2" exposure="1.2"></model-viewer>
+            <div class="content">
+                <div class="price-badge">Rs. 850</div>
+                <h2>Golden Glaze</h2>
+                <div class="ingredients">70% Cacao &bull; 24K Gold Leaf &bull; Artisan Yeast</div>
+                
+                <div class="allergen-bar">ALLERGY ALERT: NUTS, SOY, GLUTEN</div>
+
+                <div class="stats-wrapper">
+                    <div class="stat-label">
+                        <span>ENERGY / 450 KCAL</span>
+                        <span>30% DAILY ENERGY</span>
+                    </div>
+                    <div class="luxury-bar"><div class="luxury-fill" style="width: 30%;"></div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-card">
+            <model-viewer src="coffee_cup__espresso_cup.glb" ar camera-controls auto-rotate shadow-intensity="2" exposure="1.2"></model-viewer>
+            <div class="content">
+                <div class="price-badge">Rs. 650</div>
+                <h2>Estate Espresso</h2>
+                <div class="ingredients">Hand-Picked Arabica &bull; Zero Sugar &bull; 19 Bar Extraction</div>
+                
+                <div class="allergen-bar">CAUTION: HIGH CAFFEINE CONTENT</div>
+
+                <div class="stats-wrapper">
+                    <div class="stat-label">
+                        <span>ENERGY / 5 KCAL</span>
+                        <span>0% DAILY ENERGY</span>
+                    </div>
+                    <div class="luxury-bar"><div class="luxury-fill" style="width: 5%;"></div></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        window.addEventListener('load', () => {
+            const fills = document.querySelectorAll('.luxury-fill');
+            setTimeout(() => {
+                fills.forEach(fill => {
+                    const targetWidth = fill.style.width;
+                    fill.style.width = targetWidth;
+                });
+            }, 500);
+        });
+    </script>
+
+</body>
+</html>
